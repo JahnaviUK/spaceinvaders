@@ -90,6 +90,22 @@ while running :
             if enemyx[i]<=0 or enemyx[i]>=SCREEN_WIDTH - 64:
                 enemyx_change[i]*=-1
                 enemyy[i]+=enemyy_change[i]
+            if iscollistion(enemyx[i],enemyy[i],bulletx,bullety):
+                bullety = PLAYER_START_Y
+                bullet_state ="ready"
+                score_value += 1 
+                enemyx[i]=random.randint(0,SCREEN_WIDTH-64)
+                enemyy[i]=random.randint(ENEMY_START_Y_MIN,ENEMY_START_Y_MAX)
+            enemy(enemyx[i],enemyy[i],i)
+        if bullety <= 0 :
+            bullety = PLAYER_START_Y
+            bullet_state = "ready"
+        elif bullet_state == "fire":
+            fire_bullet(bulletx,bullety)
+            bullety-=bullety_change
+        player(playerx,playery)
+        show_score(textx,texty)
+        pygame.display.update()
     
     
 
